@@ -114,7 +114,7 @@ class _MyTimerState extends State<MyTimer> {
             ),
             TextButton(
                 onPressed: _timerContinue,
-                child: const Text('continue')
+                child: const Text('Restart')
             ),
 
             TextButton(
