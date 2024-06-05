@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Duration milliDuration = new Duration(milliseconds: 6);
+Duration milliDuration = const Duration(milliseconds: 6);
 
 void main() {
   runApp(const MyApp());
@@ -41,17 +41,21 @@ class _MyTimerState extends State<MyTimer> {
 
   void _timerStart()
   {
+    if(_isTimer) return;
     _minute = 0;
     _second = 0;
     _milliSecond = 0;
     _isTimer = true;
     _timer();
   }
-  void _timerContinue()
+
+  void _timerRestart()
   {
+    if(_isTimer) return;
     _isTimer = true;
     _timer();
   }
+
   void _timerFin()
   {
     _isTimer = false;
@@ -66,16 +70,18 @@ class _MyTimerState extends State<MyTimer> {
       }
   }
 
-  void _timerClock()
+  void _timerClock()  
   {
     setState(()
     {
       ++_milliSecond;
+
       if(_milliSecond == 100)
-        {
+      {
           _milliSecond = 00;
           ++_second;
-        }
+      }
+
       if(_second == 60)
         {
           _second = 00;
@@ -104,7 +110,7 @@ class _MyTimerState extends State<MyTimer> {
             ),
             Text(
               '$_minute : ${_second.toString().padLeft(2,'0')} : ${_milliSecond.toString().padLeft(2,'0')}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 50
               ),
             ),
@@ -113,7 +119,7 @@ class _MyTimerState extends State<MyTimer> {
                 child: const Text('Start'),
             ),
             TextButton(
-                onPressed: _timerContinue,
+                onPressed: _timerRestart,
                 child: const Text('Restart')
             ),
 
